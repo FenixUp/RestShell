@@ -1,0 +1,36 @@
+{
+    "Requests": 
+    [
+        {
+            "TargetURL": "www.xkcd.com",
+            "HTTP_Method": "POST",
+            "HTTP_Method_option1": "POST",
+            "HTTP_Method_option3": "GET",
+            "HTTP_Method_option2": "PUT",
+            "HTTP_Method_option4": "DELETE",
+            "Headers": [
+                { "Content-Type": "application/json" },
+                { "Content-Type_option1": "application/json" },
+                { "Content-Type_option2": "application/x-www-form-urlencoded" },
+                { "Header_key1": "Header_value" },
+                { "Header_key2": "Header_value" },
+                { "Accept": "*/*" }
+            ],
+            "Request_Body": "{}",
+            "Request_Body_FileName": "blob_friend.txt",
+
+            "Follow_Redirects": true,
+
+            "ReturnType": "JSON",
+            "ReturnType_option1": "JSON",
+            "ReturnType_option2": "ToFile",
+            "ReturnType_option3": "JSON",
+            "ReturnType_option4": "JSON",
+
+
+            "Response_Body_Output_Filename": ".\\output.txt",
+
+            "EndNote": "---------------------------------------"
+        }
+    ]
+}
