@@ -13,7 +13,7 @@ cd .\Projects\RestShell
 
 
 echo '### JSON Dump First Request'
-$InputJSON = Get-Content .\Request_collection_001.json -Raw | ConvertFrom-Json 
+$InputJSON = Get-Content .\Request_example_001.json -Raw | ConvertFrom-Json 
 $InputJSON.Requests[0]
 
 echo '### Prepare to get Iterated!'
@@ -21,7 +21,7 @@ echo '### Prepare to get Iterated!'
 # for (<Init>; <Condition>; <Repeat>)
 for (($i = 0); $i -lt $InputJSON.Requests.Count; $i++)
 {
-    echo '$i'
+    echo '# $i'
     echo $i
     $current = $InputJSON.Requests[$i]
 
