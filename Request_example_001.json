@@ -2,8 +2,8 @@
     "Requests": 
     [
         {
-            "TargetURL": "www.xkcd.com",
-            "HTTP_Method": "POST",
+            "TargetURL": "www.google.com",
+            "HTTP_Method": "GET",
             "HTTP_Method_option1": "POST",
             "HTTP_Method_option3": "GET",
             "HTTP_Method_option2": "PUT",
@@ -24,8 +24,42 @@
             "ReturnType": "JSON",
             "ReturnType_option1": "JSON",
             "ReturnType_option2": "ToFile",
-            "ReturnType_option3": "JSON",
+            "ReturnType_option3": "other",
             "ReturnType_option4": "JSON",
+
+
+            "Response_Body_Output_Filename": ".\\output.txt",
+
+            "EndNote": "---------------------------------------"
+        },
+        {
+            "TargetURL": "www.xkcd.com",
+            "HTTP_Method": "GET",
+            "HTTP_Method_option1": "POST",
+            "HTTP_Method_option3": "GET",
+            "HTTP_Method_option2": "PUT",
+            "HTTP_Method_option4": "DELETE",
+            "Headers": [
+                { "Content-Type": "application/json" },
+                { "Content-Type_option1": "application/json" },
+                { "Content-Type_option2": "application/x-www-form-urlencoded" },
+                { "Header_key1": "Header_value" },
+                { "Header_key2": "Header_value" },
+                { "Accept": "*/*" },
+                { "Accept_option1": "application/*" },
+                { "Accept_option2": "text/*" },
+                { "Accept_option3": "*/json" },
+                { "Accept_option4": "*/xml" }
+            ],
+            "Request_Body": "{}",
+            "Request_Body_FileName": "blob_friend.txt",
+
+            "Follow_Redirects": true,
+
+            "ReturnType": "JSON",
+            "ReturnType_option1": "JSON",
+            "ReturnType_option2": "ToFile",
+            "ReturnType_option3": "none",
 
 
             "Response_Body_Output_Filename": ".\\output.txt",
