@@ -11,10 +11,14 @@ cd ~
 # For local use: 
 cd .\Projects\RestShell
 
+# TODO: Need to add a way to prompt for a file name. 
+
+# TODO: Need to add a way to Read the file name from the command line.
 
 echo '### JSON Dump First Request'
-# $InputJSON = Get-Content .\Request_example_001.json -Raw | ConvertFrom-Json 
-$InputJSON = Get-Content .\Simple_example_001.json -Raw | ConvertFrom-Json 
+# $InputJSON = Get-Content .\001_Simple_example.json -Raw | ConvertFrom-Json 
+# $InputJSON = Get-Content .\002_Example_with_options.json -Raw | ConvertFrom-Json 
+$InputJSON = Get-Content .\003_Request_Series_example.json -Raw | ConvertFrom-Json 
 # $InputJSON.Requests[0]
 
 echo '### Prepare to get Iterated!'
