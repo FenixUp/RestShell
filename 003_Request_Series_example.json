@@ -4,65 +4,52 @@
         {
             "TargetURL": "www.google.com",
             "HTTP_Method": "GET",
-            "HTTP_Method_option1": "POST",
-            "HTTP_Method_option3": "GET",
-            "HTTP_Method_option2": "PUT",
-            "HTTP_Method_option4": "DELETE",
+            "HTTP_Method_options": "POST,GET,PUT,DELETE",
             "Headers": [
                 { "Content-Type": "application/json" },
-                { "Content-Type_option1": "application/json" },
-                { "Content-Type_option2": "application/x-www-form-urlencoded" },
+                { "Content-Type_options1": "application/json,application/pdf" },
+                { "Content-Type_options2": "application/x-www-form-urlencoded,text/xml" },
+                { "Content-Type_options3": "text/html,audio/mpeg,video/mp4,image/jpeg" },
                 { "Header_key1": "Header_value" },
                 { "Header_key2": "Header_value" },
                 { "Accept": "*/*" }
             ],
-            "Request_Body": "{}",
-            "Request_Body_FileName": "blob_friend.txt",
+            "Request_Body": "",
+            "Request_Body_FileName": "",
 
             "Follow_Redirects": true,
 
             "ReturnType": "JSON",
-            "ReturnType_option1": "JSON",
-            "ReturnType_option2": "ToFile",
-            "ReturnType_option3": "other",
-            "ReturnType_option4": "JSON",
+            "ReturnType_options": "JSON,ToFile,None",
 
 
-            "Response_Body_Output_Filename": ".\\output.txt",
+            "Response_Body_Output_Filename": ".\\response.txt",
 
             "EndNote": "---------------------------------------"
         },
         {
             "TargetURL": "www.xkcd.com",
             "HTTP_Method": "GET",
-            "HTTP_Method_option1": "POST",
-            "HTTP_Method_option3": "GET",
-            "HTTP_Method_option2": "PUT",
-            "HTTP_Method_option4": "DELETE",
+            "HTTP_Method_options": "POST,GET,PUT,DELETE",
             "Headers": [
                 { "Content-Type": "application/json" },
-                { "Content-Type_option1": "application/json" },
-                { "Content-Type_option2": "application/x-www-form-urlencoded" },
+                { "Content-Type_options1": "application/json,application/pdf" },
+                { "Content-Type_options2": "application/x-www-form-urlencoded,text/xml" },
+                { "Content-Type_options3": "text/html,audio/mpeg,video/mp4,image/jpeg" },
                 { "Header_key1": "Header_value" },
                 { "Header_key2": "Header_value" },
-                { "Accept": "*/*" },
-                { "Accept_option1": "application/*" },
-                { "Accept_option2": "text/*" },
-                { "Accept_option3": "*/json" },
-                { "Accept_option4": "*/xml" }
+                { "Accept": "*/*" }
             ],
-            "Request_Body": "{}",
-            "Request_Body_FileName": "blob_friend.txt",
+            "Request_Body": "",
+            "Request_Body_FileName": "",
 
             "Follow_Redirects": true,
 
             "ReturnType": "JSON",
-            "ReturnType_option1": "JSON",
-            "ReturnType_option2": "ToFile",
-            "ReturnType_option3": "none",
+            "ReturnType_options": "JSON,ToFile,None",
 
 
-            "Response_Body_Output_Filename": ".\\output.txt",
+            "Response_Body_Output_Filename": ".\\response.txt",
 
             "EndNote": "---------------------------------------"
         }
