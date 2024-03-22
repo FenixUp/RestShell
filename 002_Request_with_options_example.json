@@ -1,0 +1,33 @@
+{
+    "Requests": 
+    [
+        {
+            "TargetURL": "www.google.com",
+            "HTTP_Method": "GET",
+            "HTTP_Method_option1": "POST",
+            "HTTP_Method_option3": "GET",
+            "Headers": [
+                { "Content-Type": "application/json" },
+                { "Content-Type_option1": "application/json" },
+                { "Content-Type_option2": "application/x-www-form-urlencoded" },
+                { "Header_key1": "Header_value" },
+                { "Header_key2": "Header_value" },
+                { "Accept": "*/*" }
+            ],
+            "Request_Body": "{}",
+            "Request_Body_FileName": "the_upload.txt",
+
+            "Follow_Redirects": true,
+
+            "ReturnType": "None",
+            "ReturnType_option1": "JSON",
+            "ReturnType_option2": "ToFile",
+            "ReturnType_option3": "None",
+
+
+            "Response_Body_Output_Filename": ".\\output.txt",
+
+            "EndNote": "---------------------------------------"
+        }
+    ]
+}
