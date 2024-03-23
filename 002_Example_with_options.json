@@ -3,6 +3,7 @@
     [
         {
             "Title": "--Example with notes for advanced features--",
+
             "TargetURL": "www.google.com",
             "HTTP_Method": "GET",
             "HTTP_Method_options": "POST,GET,PUT,DELETE",
@@ -15,15 +16,23 @@
                 { "Header_key2": "Header_value" },
                 { "Accept": "*/*" }
             ],
-            "Request_Body": "",
-            "Request_Body_FileName": "",
+            "Request_Body": "{ \"im a\" : \"JSON\" }",
+            "Request_Body_notes": "Need to send some data?",
+
+            "Request_Body_FileName": "PickMe.txt",
+            "Request_Body_FileName_notes": "Or another file?, but try not to send a File and a Body at the same time.",
 
             "Follow_Redirects": true,
+            "Follow_Redirects_note": "set this to false to disable following redirects.",
 
             "ReturnType": "JSON",
             "ReturnType_options": "JSON,ToFile,None",
+            "ReturnType_notes1": "JSON: If you're expecting a JSON, you can enable JSON parsing before saving.",
+            "ReturnType_notes2": "ToFile: When you're expecting binary data, like a pdf or image, select this ReturnType to save it.",
+            "ReturnType_notes3": "None: When you're not expecting any data back and you're just trying to send something.",
 
-            "Response_Body_Output_Filename": ".\\response.txt",
+            "Output_Filename": ".\\response.txt",
+            "Output_Filename_notes": "Enter the Output_Filename and folder to save the output to.",
 
             "EndNote": "---------------------------------------"
         }
