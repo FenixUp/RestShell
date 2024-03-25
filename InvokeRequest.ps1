@@ -81,6 +81,11 @@ for (($i = 0); $i -lt $InputJSON.Requests.Count; $i++)
     $echo = '### Request_Body_FileName: ' + $current.Request_Body_FileName
     echo $echo
     $Request_Body_FileName = $current.Request_Body_FileName
+    if ($Request_Body_FileName.Length -gt 0)
+    {
+        $Request_Body = Get-Content $Request_Body_FileName -Raw
+    }
+
 
 
     $echo = '### OutputFile: ' + $current.OutputFile
