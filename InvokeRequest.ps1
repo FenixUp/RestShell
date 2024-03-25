@@ -11,12 +11,13 @@ $req_headers = New-Object "System.Collections.Generic.Dictionary[[String],[Strin
 ### Read in the Request details from the selected input file: ##############################
 clear
 echo '###'
-echo '###'
 
 $StartTimeNote = "### Start Time: " + (Get-Date).ToString()
 $StartTimeNote
 
+echo ''
 echo '### Moving to script folder'
+echo $PSScriptRoot
 cd $PSScriptRoot
 
 echo '### Opening File:'
@@ -25,18 +26,15 @@ $TargetRequestFile
 echo '' # Blank line
 
 
-
 $InputJSON = Get-Content $TargetRequestFile -Raw | ConvertFrom-Json
 
-
-
-echo '### Prepare to get Iterated!'
-echo ''
+# echo '### Prepare to get Iterated!'
 
 # for (<Init>; <Condition>; <Repeat>)
 for (($i = 0); $i -lt $InputJSON.Requests.Count; $i++)
 {
-    $echo = "### i: " + $i
+    echo ''
+    $echo = "### Request Number: " + ($i + 1)
     $echo
 
     $current = $InputJSON.Requests[$i]
@@ -51,23 +49,13 @@ for (($i = 0); $i -lt $InputJSON.Requests.Count; $i++)
     $HTTP_Method = $current.HTTP_Method
 
 
-    echo '### Headers:'
-    # $Expression = { ($_.Headers) }
-    $Expression = ($current.Headers)
-    $Expression_count = $Expression.Count
-
-    echo '### Expression_count:'
-    echo $Expression_count
-    echo ''
-
-
     $Headers = ($current.Headers)
-    $echo = "Current Headers: " + $current.Headers
+    echo ''
+    $echo = "### Current Headers: " + $current.Headers
     echo $echo
     $Headers_count = $Headers.Count
     $echo = '### Headers_count: ' + $Headers_count
     echo $echo
-    echo '' 
     for ($j = 0; $j -lt $Headers_count + 0; $j++) 
     {
     <#
@@ -77,9 +65,7 @@ for (($i = 0); $i -lt $InputJSON.Requests.Count; $i++)
         $echo = $current.Headers[$j]
         echo $echo
     #>
-        $echo = $current.Headers[$j].Name
-        echo $echo
-        $echo = $current.Headers[$j].Value
+        $echo = $current.Headers[$j].Name + ': ' + $current.Headers[$j].Value
         echo $echo
 
         $req_headers.Add($current.Headers[$j].Name, $current.Headers[$j].Value)
@@ -109,7 +95,7 @@ for (($i = 0); $i -lt $InputJSON.Requests.Count; $i++)
 
     #### Rest Implementation: ###########################################################
     echo '###'
-    echo '### Starting:'
+    # echo '### Starting:'
     # $StartTimeNote = "Start Time: " + (Get-Date).ToString() 
     # $StartTimeNote
 
@@ -121,31 +107,56 @@ for (($i = 0); $i -lt $InputJSON.Requests.Count; $i++)
     # $body = "{ ""reportname"": """+ $UDR_Name + """ }"
 
 
-    echo 'Starting Request: '
+    echo '### Starting Request: '
     $response = ""
     if ($current.HTTP_Method -eq "GET" ) 
     {
         $response = Invoke-RestMethod $current.TargetURL -Method 'GET' -Headers $req_headers
-        $response
+        # $response
     }
     elseif ($current.HTTP_Method -eq "POST" ) 
     {
         $response = Invoke-RestMethod $current.TargetURL -Method 'POST' -Headers $req_headers -Body $Request_Body
-        $response
+        # $response
+    }
+    elseif ($current.HTTP_Method -eq "PUT" ) 
+    {
+        $response = Invoke-RestMethod $current.TargetURL -Method 'PUT' -Headers $req_headers -Body $Request_Body
+        # $response
+    }
+    if ($current.HTTP_Method -eq "DELETE" ) 
+    {
+        $response = Invoke-RestMethod $current.TargetURL -Method 'DELETE' -Headers $req_headers
+        # $response
+    }
+
+    echo '### Peek Response:'
+    # $echo = [int]$response.StatusCode + " - " + $response.StatusCode
+    # $echo = $response.StatusCode
+    # [int]$StatusCode = $request.StatusCode
+    $echo = $response.ToString().Substring(0,100)
+    echo $echo
+
+    if ($response.ToString().Length -gt 100 )
+    {
+        echo ''
+        echo '### Response message truncated here, please check the Output File for the full message.'
+        echo ''
     }
 
 
     $response_json = $response | ConvertTo-Json -depth 5 | Out-File -FilePath $OutputFile
-    $response_json
+    # $response_json
     # | ConvertFrom-Json
 
 
+    echo '### End Request'
 }
 
-return
 
 
 echo '###'
+echo ''
 $EndTimeNote = "End Time: " + (Get-Date).ToString() 
 $EndTimeNote
 echo 'Completed!'
