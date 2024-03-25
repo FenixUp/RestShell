@@ -1,23 +1,24 @@
 {
-    "Requests": 
-    [
+    "Requests": [
         {
             "Title": "--Simple Example, for when you know what you need--",
-
             "TargetURL": "www.google.com",
             "HTTP_Method": "GET",
             "Headers": [
-                { "Content-Type": "application/json" },
-                { "Accept": "*/*" }
+                {
+                    "Name": "Content-Type",
+                    "Value": "application/html"
+                },
+                {
+                    "Name": "Accept",
+                    "Value": "*/*"
+                }
             ],
             "Request_Body": "",
             "Request_Body_FileName": "",
-
             "Follow_Redirects": true,
-
             "ReturnType": "ToFile",
-            "Response_Body_Output_Filename": ".\\response.txt",
-
+            "Output_Filename": ".\\response.txt",
             "EndNote": "--------------------------------------------"
         }
     ]

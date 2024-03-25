@@ -2,17 +2,32 @@
     "Requests": 
     [
         {
+            "Title": "--In this example, send multiple requests for what you want done.--",
+
             "TargetURL": "www.google.com",
             "HTTP_Method": "GET",
             "HTTP_Method_options": "POST,GET,PUT,DELETE",
             "Headers": [
-                { "Content-Type": "application/json" },
+                {
+                    "Name": "Content-Type",
+                    "Value": "application/html"
+                },
                 { "Content-Type_options1": "application/json,application/pdf" },
                 { "Content-Type_options2": "application/x-www-form-urlencoded,text/xml" },
                 { "Content-Type_options3": "text/html,audio/mpeg,video/mp4,image/jpeg" },
-                { "Header_key1": "Header_value" },
-                { "Header_key2": "Header_value" },
-                { "Accept": "*/*" }
+
+                {
+                    "Name": "Header_key1",
+                    "Value": "Header_value"
+                },
+                {
+                    "Name": "Header_key2",
+                    "Value": "Header_value"
+                },
+                {
+                    "Name": "Accept",
+                    "Value": "*/*"
+                }
             ],
             "Request_Body": "",
             "Request_Body_FileName": "",
@@ -23,22 +38,37 @@
             "ReturnType_options": "JSON,ToFile,None",
 
 
-            "Response_Body_Output_Filename": ".\\response.txt",
+            "Output_Filename": ".\\response.txt",
 
             "EndNote": "---------------------------------------"
         },
         {
+            "Title": "--This is another request to run next :D --",
+
             "TargetURL": "www.xkcd.com",
             "HTTP_Method": "GET",
             "HTTP_Method_options": "POST,GET,PUT,DELETE",
             "Headers": [
-                { "Content-Type": "application/json" },
+                {
+                    "Name": "Content-Type",
+                    "Value": "application/html"
+                },
                 { "Content-Type_options1": "application/json,application/pdf" },
                 { "Content-Type_options2": "application/x-www-form-urlencoded,text/xml" },
                 { "Content-Type_options3": "text/html,audio/mpeg,video/mp4,image/jpeg" },
-                { "Header_key1": "Header_value" },
-                { "Header_key2": "Header_value" },
-                { "Accept": "*/*" }
+
+                {
+                    "Name": "Header_key1",
+                    "Value": "Header_value"
+                },
+                {
+                    "Name": "Header_key2",
+                    "Value": "Header_value"
+                },
+                {
+                    "Name": "Accept",
+                    "Value": "*/*"
+                }
             ],
             "Request_Body": "",
             "Request_Body_FileName": "",
@@ -49,7 +79,7 @@
             "ReturnType_options": "JSON,ToFile,None",
 
 
-            "Response_Body_Output_Filename": ".\\response.txt",
+            "Output_Filename": ".\\response.txt",
 
             "EndNote": "---------------------------------------"
         }
