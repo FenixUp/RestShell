@@ -136,10 +136,8 @@ for (($i = 0); $i -lt $InputJSON.Requests.Count; $i++)
     }
 
     echo '### Peek Response:'
-    # $echo = [int]$response.StatusCode + " - " + $response.StatusCode
-    # $echo = $response.StatusCode
-    # [int]$StatusCode = $request.StatusCode
-    $echo = $response.ToString().Substring(0,100)
+    $var1 = $response.ToString().Length
+    $echo = $response.ToString().Substring(0,[math]::min(100, $var1))
     echo $echo
 
     if ($response.ToString().Length -gt 100 )
