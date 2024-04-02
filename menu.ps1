@@ -51,7 +51,7 @@ while(($finished_selection -ne 1) -and ($failure_count -lt 4))
         $failure_count += 1
     }
     # Did i get a number in range? 
-    elseif (($menu_item -ge 0) -or ($menu_item -gt $json_files.Count))
+    elseif (($menu_item -le 0) -or ($menu_item -gt $json_files.Count))
     {
         $echo = '' + $menu_item + ' is out of range. Please select from the menu.'
         echo $echo
