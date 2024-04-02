@@ -7,6 +7,8 @@
 
 clear
 echo '###'
+echo '### RestShell - Make Web Requests'
+echo '###'
 echo '### Moving to script folder'
 echo $PSScriptRoot
 echo '###'
