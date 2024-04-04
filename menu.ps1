@@ -24,6 +24,7 @@ $json_files = Get-ChildItem -Path .\*.json
 
 $finished_selection = 0
 $failure_count = 0
+$json_filename = ""
 while(($finished_selection -ne 1) -and ($failure_count -lt 4))
 {
     echo 'Local JSON files:'
@@ -40,7 +41,6 @@ while(($finished_selection -ne 1) -and ($failure_count -lt 4))
     $menu_item = Read-Host 'Select a JSON file by number'
 
     # Did the user send a quit message? 
-
     if (($menu_item -eq 'q') -or ($menu_item -eq 'quit'))
     {
         echo 'Exiting early.'
@@ -63,13 +63,17 @@ while(($finished_selection -ne 1) -and ($failure_count -lt 4))
     else
     {
         $echo = "Selecting JSON input: " + $json_files[$menu_item - 1].Name
+        $json_filename = $json_files[$menu_item - 1].Name
         echo $echo
         $finished_selection = 1
     }
 }
 
-if ($failure_count -gt 3)
+if ($failure_count -ge 4)
 {
     echo 'Too many failed inputs, exiting early'
     return
 }
+
+### All Set, should be ok to call InvokeRequest script now.
+.\InvokeRequest.ps1 -TargetRequestFile $json_filename
