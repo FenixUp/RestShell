@@ -15,5 +15,5 @@ cd $PSScriptRoot
 
 ### For those who hack
 
-# If you know already which request file to open and run, uncomment this line and comment the menu.ps1 line and provide the filename of your JSON file
+# If you know already know which request file to open and run, comment the menu.ps1 line, then uncomment this line with a #. Make sure to provide the filename of your JSON file
 # .\scripts\InvokeRequest.ps1 -TargetRequestFile .\my_local_file.json
