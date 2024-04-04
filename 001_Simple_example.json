@@ -16,7 +16,6 @@
             ],
             "Request_Body": "",
             "Request_Body_FileName": "",
-            "Follow_Redirects": true,
             "ReturnType": "ToFile",
             "Output_Filename": ".\\response.txt",
             "EndNote": "--------------------------------------------"
