@@ -16,9 +16,8 @@ $StartTimeNote = "### Start Time: " + (Get-Date).ToString()
 $StartTimeNote
 
 echo ''
-echo '### Moving to script folder'
-echo $PSScriptRoot
-cd $PSScriptRoot
+# echo '### Moving to script folder: ' $PSScriptRoot
+# cd $PSScriptRoot
 
 echo '### Opening File:'
 $TargetRequestFile = ".\" + $TargetRequestFile

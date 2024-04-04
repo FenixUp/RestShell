@@ -1,6 +1,6 @@
 ###
 ### Menu.ps1
-### Command Line Menu for RestShell.
+### Command Line Menu for RestShell
 ###
 
 
@@ -9,11 +9,11 @@ clear
 echo '###'
 echo '### RestShell - Make Web Requests'
 echo '###'
-echo '### Moving to script folder'
-echo $PSScriptRoot
-echo '###'
+# echo '### Moving to script folder'
+# echo $PSScriptRoot
+# cd $PSScriptRoot
+# echo '###'
 echo ''
-cd $PSScriptRoot
 
 
 ### Displaying Local JSON files;
@@ -76,4 +76,4 @@ if ($failure_count -ge 4)
 }
 
 ### All Set, should be ok to call InvokeRequest script now.
-.\InvokeRequest.ps1 -TargetRequestFile $json_filename
+.\scripts\InvokeRequest.ps1 -TargetRequestFile $json_filename
