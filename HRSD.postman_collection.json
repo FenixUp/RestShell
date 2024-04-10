@@ -1,0 +1,535 @@
+{
+	"info": {
+		"_postman_id": "d2b06ddc-b9ad-4c26-bc3d-86866bfd4867",
+		"name": "HRSD",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11345645"
+	},
+	"item": [
+		{
+			"name": "Get Token",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "as9S3jlkf5KKJ",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "$$HRSDApi",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://unifier.oraclecloud.com/uhrsd/stage/ws/rest/service/v1/login",
+					"protocol": "https",
+					"host": [
+						"unifier",
+						"oraclecloud",
+						"com"
+					],
+					"path": [
+						"uhrsd",
+						"stage",
+						"ws",
+						"rest",
+						"service",
+						"v1",
+						"login"
+					]
+				},
+				"description": "Get Token"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Attachments",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJEQiJ9.eyJ1c2VybmFtZSI6IiQkaHJzZGFwaSJ9.2DAF2C8F-8107-3500-A2C8-425D6DF0AC5933032ABF9B281E4165806FEBD3515324",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "input",
+						"value": "{\n  \"bpname\": \"Invoice Tracking\",\n  \"record_no\": \"UIT-80596\",\n  \"lineitem\": \"no\",\n  \"attach_all_publications\": \"yes\",\n  \"lineitem_File\": \"no\",\n  \"general_comments\": \"no\"\n}",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://unifier.oraclecloud.com/uhrsd/stage/ws/rest/service/v1/bp/record/file/Proj0709?input={\n  \"bpname\": \"Request for Information (RFI)\",\n  \"record_no\": \"YFRFITEST01\",\n  \"lineitem\": \"no\",\n  \"attach_all_publications\": \"yes\",\n  \"lineitem_File\": \"no\",\n  \"general_comments\": \"no\"\n}",
+					"protocol": "https",
+					"host": [
+						"unifier",
+						"oraclecloud",
+						"com"
+					],
+					"path": [
+						"uhrsd",
+						"stage",
+						"ws",
+						"rest",
+						"service",
+						"v1",
+						"bp",
+						"record",
+						"file",
+						"Proj0709"
+					],
+					"query": [
+						{
+							"key": "input",
+							"value": "{\n  \"bpname\": \"Request for Information (RFI)\",\n  \"record_no\": \"YFRFITEST01\",\n  \"lineitem\": \"no\",\n  \"attach_all_publications\": \"yes\",\n  \"lineitem_File\": \"no\",\n  \"general_comments\": \"no\"\n}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update BP - Delete Lines",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJEQiJ9.eyJ1c2VybmFtZSI6IiQkaHJzZGFwaSJ9.08E98021-B191-B095-DEEA-D80F48E86F278495AA7DD7A30F312BACB2E1EFFDE4D2",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"options\": {\r\n\"bpname\": \"HRSD Contracts..\",\r\n\"LineItemIdentifier\": \"con_linenumber_int\"\r\n},\r\n\"data\": [\r\n{\r\n\"record_no\": \"HRC-000011\",\r\n\"_delete_bp_lineitems\":\"10\"\r\n}\r\n]\r\n}"
+				},
+				"url": {
+					"raw": "https://unifier.oraclecloud.com/uhrsd/ws/rest/service/v1/bp/record/Proj0788?input={\"bpname\": \"HRSD Contracts..\", \"record_no\": \"HRC-000011\"}",
+					"protocol": "https",
+					"host": [
+						"unifier",
+						"oraclecloud",
+						"com"
+					],
+					"path": [
+						"uhrsd",
+						"ws",
+						"rest",
+						"service",
+						"v1",
+						"bp",
+						"record",
+						"Proj0788"
+					],
+					"query": [
+						{
+							"key": "input",
+							"value": "{\"bpname\": \"HRSD Contracts..\", \"record_no\": \"HRC-000011\"}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create RFI",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJEQiJ9.eyJ1c2VybmFtZSI6IiQkaHJzZGFwaSJ9.D485E181-F117-D916-966C-5CC64DC3F554A95E4223CF83A407446104B16109AF80",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"options\": {\r\n\t\t\"bpname\": \"Request for Information (RFI)\",\r\n\t\t\"project_number\": \"Proj0709\"\r\n\t},\r\n\t\"data\": [\r\n\t\t{\r\n\t\t\t\"record_no\": \"YFRFITEST01\",\r\n\t\t\t\"title\": \"Test Record\",\r\n            \"u_reference_id\":\"001\",\r\n            \"u_rfi_question\":\"Question about pipes\",\r\n            \"u_proposed_solution\":\"Are 1 inch pipes the right size?\",\r\n            \"u_disciplines_pd\":\"\"\r\n\t\t}\r\n\t]\r\n}"
+				},
+				"url": {
+					"raw": "https://unifier.oraclecloud.com/uhrsd/stage/ws/rest/service/v1/bp/record/Proj0709",
+					"protocol": "https",
+					"host": [
+						"unifier",
+						"oraclecloud",
+						"com"
+					],
+					"path": [
+						"uhrsd",
+						"stage",
+						"ws",
+						"rest",
+						"service",
+						"v1",
+						"bp",
+						"record",
+						"Proj0709"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update RFI",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJEQiJ9.eyJ1c2VybmFtZSI6IiQkaHJzZGFwaSJ9.F620FC6A-415A-AD00-3898-60841D2BB5412C2E8AE44D90FE81068E5833E5FFE01F",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"options\": {\r\n\t\t\"bpname\": \"Request for Information (RFI)\",\r\n\t\t\"project_number\": \"Proj0709\"\r\n\t},\r\n\t\"data\": [\r\n\t\t{\r\n\t\t\t\"record_no\": \"YFRFITEST01\",\r\n\t\t\t\"title\": \"Test Record - Updated\",\r\n            \"u_reference_id\":\"001\",\r\n            \"u_rfi_question\":\"Question about pipes\",\r\n            \"u_proposed_solution\":\"Are 1 inch pipes the right size?\",\r\n            \"u_disciplines_pd\":\"\"\r\n\t\t}\r\n\t]\r\n}"
+				},
+				"url": {
+					"raw": "https://unifier.oraclecloud.com/uhrsd/stage/ws/rest/service/v1/bp/record/Proj0709",
+					"protocol": "https",
+					"host": [
+						"unifier",
+						"oraclecloud",
+						"com"
+					],
+					"path": [
+						"uhrsd",
+						"stage",
+						"ws",
+						"rest",
+						"service",
+						"v1",
+						"bp",
+						"record",
+						"Proj0709"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update RFI - Move Workflow",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJEQiJ9.eyJ1c2VybmFtZSI6IiQkaHJzZGFwaSJ9.F620FC6A-415A-AD00-3898-60841D2BB5412C2E8AE44D90FE81068E5833E5FFE01F",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"options\": {\r\n\t\t\"bpname\": \"Request for Information (RFI)\",\r\n\t\t\"project_number\": \"Proj0709\",\r\n        \"workflow_details\":{\r\n            \"WFCurrentStepName\":\"Creator Revise\",\r\n            \"WFActionName\":\"Submit Final Response\"\r\n            }\r\n\t},\r\n\t\"data\": [\r\n\t\t{\r\n\t\t\t\"record_no\": \"YFRFITEST01\",\r\n\t\t\t\"title\": \"Test Record - Updated\",\r\n            \"u_reference_id\":\"001\",\r\n            \"u_rfi_question\":\"Question about pipes\",\r\n            \"u_proposed_solution\":\"Are 1 inch pipes the right size?\",\r\n            \"u_disciplines_pd\":\"\"\r\n\t\t}\r\n\t]\r\n}"
+				},
+				"url": {
+					"raw": "https://unifier.oraclecloud.com/uhrsd/stage/ws/rest/service/v1/bp/record/Proj0709",
+					"protocol": "https",
+					"host": [
+						"unifier",
+						"oraclecloud",
+						"com"
+					],
+					"path": [
+						"uhrsd",
+						"stage",
+						"ws",
+						"rest",
+						"service",
+						"v1",
+						"bp",
+						"record",
+						"Proj0709"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update RFI w/Attachment",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJEQiJ9.eyJ1c2VybmFtZSI6IiQkaHJzZGFwaSJ9.D485E181-F117-D916-966C-5CC64DC3F554A95E4223CF83A407446104B16109AF80",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"options\": {\r\n\t\t\"bpname\": \"Request for Information (RFI)\",\r\n\t\t\"project_number\": \"Proj0709\"\r\n\t},\r\n\t\"data\": [\r\n\t\t{\r\n\t\t\t\"record_no\": \"YFRFITEST01\",\r\n            \"title\":\"Update w/attachment\",\r\n            \"rfi_ProjectManagerResponse\": \"inputted\",\r\n\t\t\t\"_attachment\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"reference\": \"NO\",\r\n\t\t\t\t\t\"revision_no\": 1,\r\n\t\t\t\t\t\"publication_no\": 1,\r\n\t\t\t\t\t\"file_name\": \"Test.txt\",\r\n\t\t\t\t\t\"title\": \"Test.txt\"\r\n\t\t\t\t}\r\n\t\t\t]\r\n\t\t}\r\n\t],\r\n\t\"_attachment\": {\r\n\t\t\"zipped_file_name\": \"Test.zip\",\r\n\t\t\"zipped_file_size\": \"134\",\r\n\t\t\"zipped_file_content\": \"UEsDBBQAAAAAAHR3PFJTxH6vFAAAABQAAAAIAAAAVGVzdC50eHRUZXN0aW5nIFRleHQgTWVzc2FnZVBLAQIUABQAAAAAAHR3PFJTxH6vFAAAABQAAAAIAAAAAAAAAAEAIAAAAAAAAABUZXN0LnR4dFBLBQYAAAAAAQABADYAAAA6AAAAAAA=\"\r\n\t}\r\n}"
+				},
+				"url": {
+					"raw": "https://unifier.oraclecloud.com/uhrsd/stage/ws/rest/service/v2/bp/record/file",
+					"protocol": "https",
+					"host": [
+						"unifier",
+						"oraclecloud",
+						"com"
+					],
+					"path": [
+						"uhrsd",
+						"stage",
+						"ws",
+						"rest",
+						"service",
+						"v2",
+						"bp",
+						"record",
+						"file"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update RFI w/Attachment Move Workflow",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJEQiJ9.eyJ1c2VybmFtZSI6IiQkaHJzZGFwaSJ9.D485E181-F117-D916-966C-5CC64DC3F554A95E4223CF83A407446104B16109AF80",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"options\": {\r\n\t\t\"bpname\": \"Request for Information (RFI)\",\r\n\t\t\"project_number\": \"Proj0709\",\r\n        \"workflow_details\":{\r\n            \"WFCurrentStepName\":\"Creator Revise\",\r\n            \"WFActionName\":\"Submit Final Response\"\r\n            }\r\n\t},\r\n\t\"data\": [\r\n\t\t{\r\n\t\t\t\"record_no\": \"YFRFITEST01\",\r\n            \"title\":\"Update w/attachment\",\r\n            \"rfi_ProjectManagerResponse\": \"inputted\",\r\n\t\t\t\"_attachment\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"reference\": \"NO\",\r\n\t\t\t\t\t\"revision_no\": 1,\r\n\t\t\t\t\t\"publication_no\": 1,\r\n\t\t\t\t\t\"file_name\": \"Test.txt\",\r\n\t\t\t\t\t\"title\": \"Test.txt\"\r\n\t\t\t\t}\r\n\t\t\t]\r\n\t\t}\r\n\t],\r\n\t\"_attachment\": {\r\n\t\t\"zipped_file_name\": \"Test.zip\",\r\n\t\t\"zipped_file_size\": \"134\",\r\n\t\t\"zipped_file_content\": \"UEsDBBQAAAAAAHR3PFJTxH6vFAAAABQAAAAIAAAAVGVzdC50eHRUZXN0aW5nIFRleHQgTWVzc2FnZVBLAQIUABQAAAAAAHR3PFJTxH6vFAAAABQAAAAIAAAAAAAAAAEAIAAAAAAAAABUZXN0LnR4dFBLBQYAAAAAAQABADYAAAA6AAAAAAA=\"\r\n\t}\r\n}"
+				},
+				"url": {
+					"raw": "https://unifier.oraclecloud.com/uhrsd/stage/ws/rest/service/v2/bp/record/file",
+					"protocol": "https",
+					"host": [
+						"unifier",
+						"oraclecloud",
+						"com"
+					],
+					"path": [
+						"uhrsd",
+						"stage",
+						"ws",
+						"rest",
+						"service",
+						"v2",
+						"bp",
+						"record",
+						"file"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create RFI w/Attachment",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJEQiJ9.eyJ1c2VybmFtZSI6IiQkaHJzZGFwaSJ9.2DAF2C8F-8107-3500-A2C8-425D6DF0AC5933032ABF9B281E4165806FEBD3515324",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"options\": {\r\n\t\t\"bpname\": \"Request for Information (RFI)\",\r\n\t\t\"project_number\": \"Proj0709\"\r\n\t},\r\n\t\"data\": [\r\n\t\t{\r\n\t\t\t\"record_no\": \"YFRFITEST02\",\r\n\t\t\t\"title\": \"Test Record\",\r\n            \"u_reference_id\":\"001\",\r\n            \"u_rfi_question\":\"Question about pipes\",\r\n            \"u_proposed_solution\":\"Are 1 inch pipes the right size?\",\r\n            \"u_disciplines_pd\":\"\",\r\n\t\t\t\"_attachment\": [\r\n\t\t\t\t{\r\n\t\t\t\t\t\"reference\": \"NO\",\r\n\t\t\t\t\t\"revision_no\": 1,\r\n\t\t\t\t\t\"publication_no\": 1,\r\n\t\t\t\t\t\"file_name\": \"Test.txt\",\r\n\t\t\t\t\t\"title\": \"Test.txt\"\r\n\t\t\t\t}\r\n\t\t\t]\r\n\t\t}\r\n\t],\r\n\t\"_attachment\": {\r\n\t\t\"zipped_file_name\": \"Test.zip\",\r\n\t\t\"zipped_file_size\": \"134\",\r\n\t\t\"zipped_file_content\": \"UEsDBBQAAAAAAHR3PFJTxH6vFAAAABQAAAAIAAAAVGVzdC50eHRUZXN0aW5nIFRleHQgTWVzc2FnZVBLAQIUABQAAAAAAHR3PFJTxH6vFAAAABQAAAAIAAAAAAAAAAEAIAAAAAAAAABUZXN0LnR4dFBLBQYAAAAAAQABADYAAAA6AAAAAAA=\"\r\n\t}\r\n}"
+				},
+				"url": {
+					"raw": "https://unifier.oraclecloud.com/uhrsd/stage/ws/rest/service/v1/bp/record/file/Proj0709",
+					"protocol": "https",
+					"host": [
+						"unifier",
+						"oraclecloud",
+						"com"
+					],
+					"path": [
+						"uhrsd",
+						"stage",
+						"ws",
+						"rest",
+						"service",
+						"v1",
+						"bp",
+						"record",
+						"file",
+						"Proj0709"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Download UDR",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJEQiJ9.eyJ1c2VybmFtZSI6IiQkaHJzZGFwaSJ9.D485E181-F117-D916-966C-5CC64DC3F554A95E4223CF83A407446104B16109AF80",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"reportname\":\"01 Design Build - Request For Information\" } ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://unifier.oraclecloud.com/uhrsd/stage/ws/rest/service/v1/data/udr/get",
+					"protocol": "https",
+					"host": [
+						"unifier",
+						"oraclecloud",
+						"com"
+					],
+					"path": [
+						"uhrsd",
+						"stage",
+						"ws",
+						"rest",
+						"service",
+						"v1",
+						"data",
+						"udr",
+						"get"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
