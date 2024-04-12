@@ -15,6 +15,7 @@ echo '###'
 $StartTimeNote = "### Start Time: " + (Get-Date).ToString()
 $StartTimeNote
 
+echo '###'
 echo ''
 # echo '### Moving to script folder: ' $PSScriptRoot
 # cd $PSScriptRoot
