@@ -6,6 +6,7 @@
 ### Open this file in Powershell ISE to leverage the other scripts in this directory
 ### By Default, this script will call up the command line menu that shows the different available files and scripts to run.
 
+clear
 echo '### Moving to script folder: ' $PSScriptRoot
 cd $PSScriptRoot
 
@@ -15,5 +16,6 @@ cd $PSScriptRoot
 
 ### For those who hack
 
-# If you know already know which request file to open and run, comment the menu.ps1 line, then uncomment this line with a #. Make sure to provide the filename of your JSON file
+# If you know already know which request file to open and run, comment the menu.ps1 line with a #, then uncomment this line below by removing the #.
+# Make sure to provide the filename of your JSON file
 # .\scripts\InvokeRequest.ps1 -TargetRequestFile .\my_local_file.json
