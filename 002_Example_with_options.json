@@ -33,14 +33,14 @@
             "Request_Body_notes": "Need to send some data?",
 
             "Request_Body_FileName": "PickMe.txt",
-            "Request_Body_FileName_notes": "Or another file?, but try not to send a File and a Body at the same time.",
+            "Request_Body_FileName_notes": "Or select a file to send data from. This will override the Request_Body if populated.",
 
             "Follow_Redirects": true,
-            "Follow_Redirects_note": "set this to false to disable following redirects.",
+            "Follow_Redirects_note": "set this to false to disable following redirects. (Not yet implemented in this version)",
 
             "ReturnType": "JSON",
             "ReturnType_options": "JSON,ToFile,None",
-            "ReturnType_notes1": "JSON: If you're expecting a JSON, you can enable JSON parsing before saving.",
+            "ReturnType_notes1": "JSON: If you're expecting a JSON, you can enable JSON parsing before saving. (Not yet implemented in this version.)",
             "ReturnType_notes2": "ToFile: When you're expecting binary data, like a pdf or image, select this ReturnType to save it.",
             "ReturnType_notes3": "None: When you're not expecting any data back and you're just trying to send something.",
 
