@@ -118,6 +118,7 @@ if ($PostmanImport -eq 1)
 {
     $echo = "Importing Postman requests from: " + $json_files[$menu_item - 1].Name
     echo $echo
+    .\scripts\PostmanImport.ps1 -TargetRequestFile $json_filename
     return
 }
 
