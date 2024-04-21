@@ -69,6 +69,7 @@ while(($finished_selection -ne 1) -and ($failure_count -lt 4))
     {
         echo 'Please enter a valid number.'
         $failure_count += 1
+        $menu_item = Read-Host '> (Press Enter)'
     }
     # Did i get a number in range? 
     elseif (($menu_item -le 0) -or ($menu_item -gt $json_files.Count + 1))
@@ -76,6 +77,7 @@ while(($finished_selection -ne 1) -and ($failure_count -lt 4))
         $echo = '' + $menu_item + ' is out of range. Please select from the menu.'
         echo $echo
         $failure_count += 1
+        $menu_item = Read-Host '> (Press Enter)'
     }
     # Did the user select Import from Postman?
     elseif (($menu_item -eq $json_files.Count + 1) -and ($PostmanImport -eq 0))
