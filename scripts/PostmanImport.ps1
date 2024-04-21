@@ -22,7 +22,7 @@ if ($TargetRequestFile -eq "")
 }
 
 
-$StartTimeNote = "### Start Time: " + (Get-Date).ToString()
+$StartTimeNote = "### Postman Import-Start Time: " + (Get-Date).ToString()
 $StartTimeNote
 
 echo '###'
@@ -40,8 +40,16 @@ $InputJSON = Get-Content $TargetRequestFile -Raw | ConvertFrom-Json
 
 # echo '### Prepare to get Iterated!'
 
-$echo = "Request Count: " + $InputJSON.item.Count
+$echo = "Postman Request Count: " + $InputJSON.item.Count
 echo $echo
+
+# Did i find any Postman requests in the JSON file? 
+if ($InputJSON.item.Count -eq 0)
+{
+    echo 'Did not find any Postman requests in the selected file.'
+    echo "Exiting early."
+    return
+}
 
 $finished_selection = 0
 $failure_count = 0
