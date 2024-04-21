@@ -6,7 +6,7 @@ param(
 )
 
 
-$OutputFile = ",,_Postman_import_!!.json"
+$OutputFile = ".\,,_Postman_Import_!!.json"
 
 
 ### Read in the Request details from the selected input file: ##############################
@@ -136,6 +136,7 @@ while(($finished_selection -ne 1) -and ($failure_count -lt 4))
     # All set, display chosen selection, finish loop
     else
     {
+        $menu_item = $menu_item - 1
         $echo = "Selecting Request: " + $InputJSON.item[$menu_item].name
         $RequestName = $InputJSON.item[$menu_item].name
         # echo $echo
@@ -146,3 +147,55 @@ while(($finished_selection -ne 1) -and ($failure_count -lt 4))
 
 $echo = "Selecting Request: '" + $RequestName + "' from " + $TargetRequestFile
 echo $echo
+$string_index = "001-"
+$json_files = Get-ChildItem -Path .\*.json
+$json_count = $json_files.Count + 1
+
+# Add a leading zero if < 100
+if ($json_count -lt 100)
+{
+    $json_count = '0' + $json_count
+}
+# Add another leading zero if < 10
+if ($json_count -lt 10)
+{ 
+    $json_count = '0' + $json_count
+}
+
+# Calulate the output filename
+$OutputFile = $OutputFile.Replace(',,', $json_count).Replace('!!', (Get-Date -Format "yyyy-MM-dd"))
+echo $OutputFile
+
+#return 
+
+# assemble the JSON to push to the file.
+$out_JSON = @{
+    Title="--Postman Import: " + $RequestName + "--";
+    TargetURL=$InputJSON.item[$menu_item].request.url.raw;
+    HTTP_Method=$InputJSON.item[$menu_item].request.method;
+    Headers=$InputJSON.item[$menu_item].request.header;
+    Request_Body=$InputJSON.item[$menu_item].request.body.raw;
+    Request_Body_FileName="";
+    ReturnType="ToFile";
+    Output_Filename=".\response.txt";
+    EndNote="--------------------------------------------"
+}
+
+echo $out_JSON
+echo ''
+echo ''
+
+$out_JSON | ConvertTo-Json -depth 4 | Out-File -FilePath $OutputFile 
+
+# Re-open the file as a string to make some manual edits to the JSON.
+$editJSON = Get-Content -Path $OutputFile -Raw
+$editJSON = $editJSON.Replace('"key"', '"Name"').Replace('"value"', '"Value"').Replace("`t", "`t`t")
+# .Replace('{', '{"Requests": [')
+$editJSON = "{`r`t""Requests"": [`r`t" + $editJSON + "`t]`r}"
+# $out_JSON = @{Requests=[$editJSON]}
+
+# Re-Save
+$editJSON | Out-File -FilePath $OutputFile 
+
+
+echo 'Saved to file: ' $OutputFile
