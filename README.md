@@ -13,4 +13,6 @@ So,, it's relying on the idea that Postman Inc. doesn't lose your credentials to
 
 What i'm trying to do here is to see if i could make a script that could also do that same job, without any additional installs. 
 Allow people to develop the same kinds of API, even the layperson. 
+That Devs can focus on API Development, and not worry about Powershell. 
+A Layperson can leverage their App's API to scale up their work, using Window OS's built-in functionality.
 And definately without a non-optional, or non-transparent, cloud storage. 
