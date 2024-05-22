@@ -1,0 +1,3 @@
+Request Title,TargetURL,HTTP_Method,Headers,Request_Body,Request_Body_FileName,Output_Filename
+Simple Worksheet Example Request,www.google.com,GET,"[{""Name"":""Content-Type"",""Value"":""application/html""},{""Name"":""Accept"",""Value"":""*/*""}]",,Example_file.json,response.txt
+Another Example,www.google.com,GET,"[{""Name"":""Content-Type"",""Value"":""application/html""},{""Name"":""Accept"",""Value"":""*/*""}]","{\""JSON\"" : \""Bourne\"" }",My_fav_song_lyrics.txt,response.txt
