@@ -19,15 +19,17 @@ echo ''
 ### Prompting the User to pick one
 # echo '###'
 # Get-ChildItem -Path .\*.json
-$json_files = Get-ChildItem -Path .\*.json
+$local_files = Get-ChildItem -Path .\*.json
 
 $finished_selection = 0
 $failure_count = 0
 $json_filename = ""
 $PostmanImport = 0
+$CsvImport = 0
 
 $RequestFromJSONMessage = "### Select a JSON file to make a web request with:"
 $PostmanImportMessage = "### Select a JSON file to Import a Postman request from:"
+$CsvImportMessage = "### Select a CSV file to Import a request from:"
 $OptionsMessage = $RequestFromJSONMessage
 while(($finished_selection -ne 1) -and ($failure_count -lt 4))
 {
@@ -35,7 +37,8 @@ while(($finished_selection -ne 1) -and ($failure_count -lt 4))
     echo '### Local JSON files:'
     echo "" 
     $iter = 0
-    foreach( $json_file in $json_files)
+    # Display the local files
+    foreach( $json_file in $local_files)
     {
         $iter += 1
         $echo = '' + $iter + ': ' + $json_file.Name
@@ -44,11 +47,22 @@ while(($finished_selection -ne 1) -and ($failure_count -lt 4))
     echo ""
     echo "### Other options: "
     $iter += 1
-    if ($PostmanImport -eq 0) 
+    if ($PostmanImport -eq 0)
     {
         $echo = ' ' + $iter + ": " + "Import from Postman Export"
     }
     elseif ($PostmanImport -eq 1) 
+    {
+        $echo = ' ' + $iter + ": " + "Back to Make Web Request"
+    }
+    echo $echo
+
+    $iter += 1
+    if ($CsvImport -eq 0)
+    {
+        $echo = ' ' + $iter + ": " + "Import from CSV Request"
+    }
+    elseif (($CsvImport -eq 1) -and ($PostmanImport -eq 0))
     {
         $echo = ' ' + $iter + ": " + "Back to Make Web Request"
     }
@@ -72,7 +86,7 @@ while(($finished_selection -ne 1) -and ($failure_count -lt 4))
         $menu_item = Read-Host '> (Press Enter)'
     }
     # Did i get a number in range? 
-    elseif (($menu_item -le 0) -or ($menu_item -gt $json_files.Count + 1))
+    elseif (($menu_item -le 0) -or ($menu_item -gt $local_files.Count + 2))
     {
         $echo = '' + $menu_item + ' is out of range. Please select from the menu.'
         echo $echo
@@ -80,7 +94,7 @@ while(($finished_selection -ne 1) -and ($failure_count -lt 4))
         $menu_item = Read-Host '> (Press Enter)'
     }
     # Did the user select Import from Postman?
-    elseif (($menu_item -eq $json_files.Count + 1) -and ($PostmanImport -eq 0))
+    elseif (($menu_item -eq $local_files.Count + 1) -and ($PostmanImport -eq 0))
     {
         echo ""
         echo "---"
@@ -89,21 +103,34 @@ while(($finished_selection -ne 1) -and ($failure_count -lt 4))
         $OptionsMessage = $PostmanImportMessage
         echo ""
     }
+    # Did the user select CSV Import?
+    elseif (($menu_item -eq $local_files.Count + 2) -and ($CsvImport -eq 0))
+    {
+        echo ""
+        echo "---"
+        echo "Switching to CSV Import:"
+        $local_files = Get-ChildItem -Path .\*.csv
+        $CsvImport = 1
+        $OptionsMessage = $CsvImportMessage
+        echo ""
+    }
     # Did the user select to return to Make Web Request?
-    elseif (($menu_item -eq $json_files.Count + 1) -and ($PostmanImport -eq 1))
+    elseif ( (($menu_item -eq $local_files.Count + 1) -and ($PostmanImport -eq 1)) -or (($menu_item -eq $local_files.Count + 2) -and ($CsvImport -eq 1)))
     {
         echo ""
         echo "---"
         echo "Switching back to Make Web Request:"
+        $local_files = Get-ChildItem -Path .\*.json
         $PostmanImport = 0
+        $CsvImport = 0
         $OptionsMessage = $RequestFromJSONMessage
         echo ""
     }
     # All set, display chosen selection, finish loop
     else
     {
-        $echo = "Selecting JSON input: " + $json_files[$menu_item - 1].Name
-        $json_filename = $json_files[$menu_item - 1].Name
+        $echo = "Selecting JSON input: " + $local_files[$menu_item - 1].Name
+        $json_filename = $local_files[$menu_item - 1].Name
         echo $echo
         $finished_selection = 1
     }
@@ -118,7 +145,14 @@ if ($failure_count -ge 4)
 # Switching to Postman Import if flag was raised in Menu
 if ($PostmanImport -eq 1)
 {
-    $echo = "Importing Postman requests from: " + $json_files[$menu_item - 1].Name
+    $echo = "Importing Postman requests from: " + $local_files[$menu_item - 1].Name
+    echo $echo
+    .\scripts\PostmanImport.ps1 -TargetRequestFile $json_filename
+    return
+}
+elseif ($CsvImport -eq 1)
+{
+    $echo = "Importing Csv requests from: " + $local_files[$menu_item - 1].Name
     echo $echo
     .\scripts\PostmanImport.ps1 -TargetRequestFile $json_filename
     return
