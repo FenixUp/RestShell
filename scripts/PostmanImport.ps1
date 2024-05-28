@@ -147,7 +147,6 @@ while(($finished_selection -ne 1) -and ($failure_count -lt 4))
 
 $echo = "Selecting Request: '" + $RequestName + "' from " + $TargetRequestFile
 echo $echo
-$string_index = "001-"
 $json_files = Get-ChildItem -Path .\*.json
 $json_count = $json_files.Count + 1
 
