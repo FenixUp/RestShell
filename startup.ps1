@@ -11,11 +11,22 @@ echo '### Moving to script folder: ' $PSScriptRoot
 cd $PSScriptRoot
 
 
-.\scripts\menu.ps1
+###
+# If the target file is already known, or going to be the same one each time
+# , enter the JSON filename in these quotes for the TargetRequestFile variable
+$TargetRequestFile = ''
+# $TargetRequestFile = '001_Simple_example.json'
 
 
-### For those who hack
 
-# If you know already know which request file to open and run, comment the menu.ps1 line with a #, then uncomment this line below by removing the #.
-# Make sure to provide the filename of your JSON file
-# .\scripts\InvokeRequest.ps1 -TargetRequestFile .\my_local_file.json
+
+
+
+
+### Implementation: ####################################################
+if ($TargetRequestFile -eq '') {
+    .\scripts\menu.ps1
+}
+else {
+    .\scripts\InvokeRequest.ps1 -TargetRequestFile $TargetRequestFile
+}
