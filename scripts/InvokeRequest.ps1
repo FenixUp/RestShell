@@ -100,47 +100,50 @@ for (($i = 0); $i -lt $InputJSON.Requests.Count; $i++)
 
     #### Rest Implementation: ###########################################################
     echo '###'
-    # echo '### Starting:'
-    # $StartTimeNote = "Start Time: " + (Get-Date).ToString() 
-    # $StartTimeNote
 
-
-    # $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
-    # $headers.Add("Content-Type", "application/json")
-    # $headers.Add("Authorization", "Bearer " + $UnifierToken) 
-
-    # $body = "{ ""reportname"": """+ $UDR_Name + """ }"
-
-
-    echo '### Starting Request: '
+    $StartTimeNote = "### Starting Request: " + (Get-Date).ToString()
+    $StartTimeNote
     $response = ""
-    if ($current.HTTP_Method -eq "GET" ) 
+    try
     {
-        $response = Invoke-RestMethod $current.TargetURL -Method 'GET' -Headers $req_headers
-        # $response
+        if ($current.HTTP_Method -eq "GET" -or $current.HTTP_Method -eq "DELETE") 
+        {
+            $response = Invoke-WebRequest $current.TargetURL -Method $current.HTTP_Method -Headers $req_headers
+            $StatusCode = $Response.StatusCode
+            $StatusDescription = $Response.StatusDescription
+        }
+        elseif ($current.HTTP_Method -eq "POST" -or $current.HTTP_Method -eq "PUT")
+        {
+            $response = Invoke-WebRequest $current.TargetURL -Method $current.HTTP_Method -Headers $req_headers -Body $Request_Body
+            $StatusCode = $Response.StatusCode
+            $StatusDescription = $Response.StatusDescription
+        }
     }
-    elseif ($current.HTTP_Method -eq "POST" ) 
+    catch
     {
-        $response = Invoke-RestMethod $current.TargetURL -Method 'POST' -Headers $req_headers -Body $Request_Body
-        # $response
-    }
-    elseif ($current.HTTP_Method -eq "PUT" ) 
-    {
-        $response = Invoke-RestMethod $current.TargetURL -Method 'PUT' -Headers $req_headers -Body $Request_Body
-        # $response
-    }
-    if ($current.HTTP_Method -eq "DELETE" ) 
-    {
-        $response = Invoke-RestMethod $current.TargetURL -Method 'DELETE' -Headers $req_headers
-        # $response
+        $StatusCode = $_.Exception.Response.StatusCode.value__
+        # $StatusDescription = $_.Exception.Response.StatusDescription.value__
+        $StatusDescription = 'HTTP Exception Code'
+        echo '###'
+        $echo = '### HTTP Status Code: ' + $StatusCode + ' - ' + $StatusDescription + ' - ' + (Get-Date).ToString()
+        echo $echo
+        echo '###'
+        echo '###'
+        echo '### Web Exception Encountered - Ending Request Processing'
+        return
     }
 
+
+    echo '###'
+    $echo = '### HTTP Status Code: ' + $StatusCode + ' - ' + $StatusDescription + ' - ' + (Get-Date).ToString()
+    echo $echo
     echo '### Peek Response:'
-    $var1 = $response.ToString().Length
-    $echo = $response.ToString().Substring(0,[math]::min(100, $var1))
+
+    $var1 = $response.RawContent.ToString().Length
+    $echo = $response.RawContent.ToString().Substring(0,[math]::min(100, $var1))
     echo $echo
 
-    if ($response.ToString().Length -gt 100 )
+    if ($response.RawContent.ToString().Length -gt 100 )
     {
         echo ''
         echo '### Response message truncated here, please check the Output File for the full message.'
@@ -148,9 +151,11 @@ for (($i = 0); $i -lt $InputJSON.Requests.Count; $i++)
     }
 
 
-    $response_json = $response | ConvertTo-Json -depth 5 | Out-File -FilePath $OutputFile
-    # $response_json
-    # | ConvertFrom-Json
+    if ( $current.ReturnType -eq "JSON") {
+        $response_json = $response | ConvertTo-Json -depth 5 | Out-File -FilePath $OutputFile
+        # $response_json
+        # | ConvertFrom-Json
+    }
 
 
     echo '### End Request'

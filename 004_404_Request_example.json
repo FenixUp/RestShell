@@ -1,0 +1,23 @@
+{
+    "Requests": [
+        {
+            "Title": "--Simple Example, for when you know what you need--",
+            "TargetURL": "www.microsoft.com/unknownhost",
+            "HTTP_Method": "GET",
+            "Headers": [
+                {
+                    "Name": "Content-Type",
+                    "Value": "application/html"
+                },
+                {
+                    "Name": "Accept",
+                    "Value": "*/*"
+                }
+            ],
+            "Request_Body": "",
+            "Request_Body_FileName": "",
+            "Output_Filename": ".\\response.txt",
+            "EndNote": "--------------------------------------------"
+        }
+    ]
+}
