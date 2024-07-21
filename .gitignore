@@ -1,3 +1,5 @@
 
 *.txt
 /build
+*.pub
+*.zip
