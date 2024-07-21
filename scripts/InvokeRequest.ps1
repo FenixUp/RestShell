@@ -1,11 +1,11 @@
 ### Read in command line inputs: ##############################
-
 param(
     [Parameter()]
     [String]$TargetRequestFile = "001_Simple_example.json"
 )
 
 $OutputFile = ".\\outfile.txt"
+$SavedKeysFile = ".\\SavedKeys.txt"
 $req_headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
 
 ### Read in the Request details from the selected input file: ##############################
@@ -87,7 +87,6 @@ for (($i = 0); $i -lt $InputJSON.Requests.Count; $i++)
     }
 
 
-
     $echo = '### OutputFile: ' + $current.OutputFile
     echo $echo
     $OutputFile = $current.Output_Filename
@@ -96,7 +95,6 @@ for (($i = 0); $i -lt $InputJSON.Requests.Count; $i++)
     echo $echo
     $ReturnType = $current.ReturnType
 
-    
 
     #### Rest Implementation: ###########################################################
     echo '###'

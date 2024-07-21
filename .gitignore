@@ -3,3 +3,4 @@
 /build
 *.pub
 *.zip
+/test_data
