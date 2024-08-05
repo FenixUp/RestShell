@@ -137,11 +137,21 @@ for (($i = 0); $i -lt $InputJSON.Requests.Count; $i++)
     echo $echo
     echo '### Peek Response:'
 
-    $var1 = $response.RawContent.ToString().Length
-    $echo = $response.RawContent.ToString().Substring(0,[math]::min(100, $var1))
+    $response_payload = ""
+
+    if ($ReturnType -eq "JSON")
+    {
+        $response_payload = $response | Convert-To -depth 5 | Out-String
+    }
+    else
+    {
+        $response_payload = $response.RawContent.ToString()
+    }
+
+    $echo = $response_payload.Substring(0,[math]::min(100, $response_payload.Length))
     echo $echo
 
-    if ($response.RawContent.ToString().Length -gt 100 )
+    if ($response_payload.Length -gt 100)
     {
         echo ''
         echo '### Response message truncated here, please check the Output File for the full message.'
@@ -149,7 +159,7 @@ for (($i = 0); $i -lt $InputJSON.Requests.Count; $i++)
     }
 
 
-    if ( $current.ReturnType -eq "JSON") {
+    if ($current.ReturnType -eq "JSON") {
         $response_json = $response | ConvertTo-Json -depth 5 | Out-File -FilePath $OutputFile
         # $response_json
         # | ConvertFrom-Json
