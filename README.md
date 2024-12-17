@@ -20,3 +20,4 @@ A Layperson can leverage their App's API to scale up their work, using Window OS
 And definately without a non-optional, or non-transparent, cloud storage. 
 
 The approach here uses a JSON file as the User Interface within your own favorite text editor.
+Support for CSV and XLSX files are on the roadmap.
