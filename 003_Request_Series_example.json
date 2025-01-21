@@ -32,8 +32,6 @@
             "Request_Body": "",
             "Request_Body_FileName": "",
 
-            "Follow_Redirects": true,
-
             "ReturnType": "JSON",
             "ReturnType_options": "JSON,ToFile,None",
 
@@ -72,8 +70,6 @@
             ],
             "Request_Body": "",
             "Request_Body_FileName": "",
-
-            "Follow_Redirects": true,
 
             "ReturnType": "JSON",
             "ReturnType_options": "JSON,ToFile,None",
