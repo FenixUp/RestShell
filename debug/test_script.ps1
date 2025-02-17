@@ -209,9 +209,13 @@ if (0 -eq 1)
 
 #------------------------------------------------------------------------------
 ### Writing code to leverage functions in another ps1 file.
-. .\WriteSavedKey.ps1
+# . .\WriteSavedKey.ps1
 
 if (1 -eq 1)
 {
+    Write-Output "### Unit Test: Invoking Functions from other modules."
+    Import-Module -Name "..\scripts\WriteSavedKey.psm1"
+
+    Save-Value "field.json" "RunnerA" "First-Base"
 
 }
