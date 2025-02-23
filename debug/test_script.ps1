@@ -214,8 +214,9 @@ if (0 -eq 1)
 if (1 -eq 1)
 {
     Write-Output "### Unit Test: Invoking Functions from other modules."
-    Import-Module -Name "..\scripts\WriteSavedKey.psm1"
+    Import-Module -Name "..\scripts\WriteSavedKey.psm1" -Force
+    # $local_filepath = pwd
+    # Write-Output "local_filepath: $local_filepath"
 
-    Save-Value "field.json" "RunnerA" "First-Base"
-
+    Save-KeyValue "RunnerA" "First-Base" ".\field.json"
 }
