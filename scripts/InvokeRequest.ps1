@@ -4,8 +4,10 @@ param(
     [String]$TargetRequestFile = "001_Simple_example.json"
 )
 
+Import-Module -Name ".\WriteSavedKey.psm1" -Force
+
 $OutputFile = ".\\outfile.txt"
-$SavedKeysFile = ".\\SavedKeys.txt"
+$SavedKeysFile = ".\\SavedKeys.json"
 $req_headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
 
 ### Read in the Request details from the selected input file: ##############################
@@ -20,9 +22,8 @@ echo ''
 # echo '### Moving to script folder: ' $PSScriptRoot
 # cd $PSScriptRoot
 
-echo '### Opening File:'
 $TargetRequestFile = ".\" + $TargetRequestFile
-$TargetRequestFile
+echo "### Opening File: $TargetRequestFile"
 echo '' # Blank line
 
 
@@ -101,6 +102,11 @@ for (($i = 0); $i -lt $InputJSON.Requests.Count; $i++)
 
     $StartTimeNote = "### Starting Request: " + (Get-Date).ToString()
     $StartTimeNote
+
+    ## Beginning Pre-Processing.
+    ## Applying Saved Key-Values to the request before sending.
+    
+
     $response = ""
     try
     {
@@ -136,6 +142,7 @@ for (($i = 0); $i -lt $InputJSON.Requests.Count; $i++)
     $echo = '### HTTP Status Code: ' + $StatusCode + ' - ' + $StatusDescription + ' - ' + (Get-Date).ToString()
     echo $echo
     echo '### Peek Response:'
+    echo '---'
 
     $response_payload = ""
 
@@ -153,7 +160,7 @@ for (($i = 0); $i -lt $InputJSON.Requests.Count; $i++)
 
     if ($response_payload.Length -gt 100)
     {
-        echo ''
+        echo '---'
         echo '### Response message truncated here, please check the Output File for the full message.'
         echo ''
     }
@@ -161,14 +168,17 @@ for (($i = 0); $i -lt $InputJSON.Requests.Count; $i++)
 
     if ($current.ReturnType -eq "JSON") {
         $response_json = $response | ConvertTo-Json -depth 5 | Out-File -FilePath $OutputFile
-        # $response_json
-        # | ConvertFrom-Json
     }
 
+    # Request Post-Processing
+    # Collecting Key-Values from request and searching the response info.
+    Write-Output "### Collecting Key-Values from request and searching the response info."
+    # Save-KeyValue "RunnerA" "First-Base" $SavedKeysFile
 
+
+    echo ''
     echo '### End Request'
 }
-
 
 
 echo '###'
