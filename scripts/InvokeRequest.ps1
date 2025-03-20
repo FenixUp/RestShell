@@ -8,7 +8,6 @@ Import-Module -Name ".\WriteSavedKey.psm1" -Force
 
 $OutputFile = ".\\outfile.txt"
 $SavedKeysFile = ".\\SavedKeys.json"
-$req_headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
 
 ### Read in the Request details from the selected input file: ##############################
 clear
@@ -49,6 +48,7 @@ for (($i = 0); $i -lt $InputJSON.Requests.Count; $i++)
     echo $echo
     $HTTP_Method = $current.HTTP_Method
 
+    $req_headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
 
     $Headers = ($current.Headers)
     echo ''
