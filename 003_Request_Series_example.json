@@ -7,15 +7,14 @@
             "TargetURL": "www.google.com",
             "HTTP_Method": "GET",
             "HTTP_Method_options": "POST,GET,PUT,DELETE",
+            "Content-Type_options1": "application/json,application/pdf",
+            "Content-Type_options2": "application/x-www-form-urlencoded,text/xml",
+            "Content-Type_options3": "text/html,audio/mpeg,video/mp4,image/jpeg",
             "Headers": [
                 {
                     "Name": "Content-Type",
                     "Value": "application/html"
                 },
-                { "Content-Type_options1": "application/json,application/pdf" },
-                { "Content-Type_options2": "application/x-www-form-urlencoded,text/xml" },
-                { "Content-Type_options3": "text/html,audio/mpeg,video/mp4,image/jpeg" },
-
                 {
                     "Name": "Header_key1",
                     "Value": "Header_value"
@@ -46,15 +45,15 @@
             "TargetURL": "www.xkcd.com",
             "HTTP_Method": "GET",
             "HTTP_Method_options": "POST,GET,PUT,DELETE",
+
+            "Content-Type_options1": "application/json,application/pdf",
+            "Content-Type_options2": "application/x-www-form-urlencoded,text/xml",
+            "Content-Type_options3": "text/html,audio/mpeg,video/mp4,image/jpeg",
             "Headers": [
                 {
                     "Name": "Content-Type",
                     "Value": "application/html"
                 },
-                { "Content-Type_options1": "application/json,application/pdf" },
-                { "Content-Type_options2": "application/x-www-form-urlencoded,text/xml" },
-                { "Content-Type_options3": "text/html,audio/mpeg,video/mp4,image/jpeg" },
-
                 {
                     "Name": "Header_key1",
                     "Value": "Header_value"
