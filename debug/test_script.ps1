@@ -207,16 +207,75 @@ if (0 -eq 1)
 
 } # End Unit Test
 
+
 #------------------------------------------------------------------------------
+### Testing out the Get-LookUps function.
+if (1 -eq 1)
+{
+    echo ""
+    Write-Output "### Unit Test: Invoking Get-LookUps function."
+    Write-Output "# Removing the LookUpValues.json file to restart the test."
+    Remove-Item ".\\LookUpValues.json" -ErrorAction SilentlyContinue
+
+    Import-Module -Name "..\scripts\WriteSavedKey.psm1" -Force
+
+    $results = Get-LookUps
+
+    Write-Output "Look up dump? :"
+    $results
+}
+
+### Testing out the Get-LookUps function.
+# This time without creating the look-up file.
+if (1 -eq 1)
+{
+    echo ""
+    Write-Output "### Unit Test: Invoking Get-LookUps function, no file create:"
+    Import-Module -Name "..\scripts\WriteSavedKey.psm1" -Force
+
+    $results = Get-LookUps
+    Write-Output "Look up dump? :"
+    $results
+
+    # $results
+    # foreach ($property in $results) {
+        # Write-Output $property
+        # Write-Output $property.Name
+        # Write-Output $property.Value
+        # $results[$property.Name] = $property.Value
+    # }
+}
+
+#------------------------------------------------------------------------------
+### Testing out the Save-LookUp function.
 ### Writing code to leverage functions in another ps1 file.
 # . .\WriteSavedKey.ps1
 
-if (1 -eq 1)
+if (0 -eq 1)
 {
-    Write-Output "### Unit Test: Invoking Functions from other modules."
     Import-Module -Name "..\scripts\WriteSavedKey.psm1" -Force
-    # $local_filepath = pwd
-    # Write-Output "local_filepath: $local_filepath"
 
-    Save-KeyValue "RunnerA" "First-Base" ".\field.json"
+    Write-Output "### Unit Test: Invoking Save-LookUp from other modules."
+    Write-Output "# Removing the LookUpValues.json file to restart the test."
+    Remove-Item ".\\LookUpValues.json" -ErrorAction SilentlyContinue
+
+    Save-LookUp "RunnerA" "First-Base"
+}
+
+# Try to Update a value in LookUpValues file in an existing file.
+if (0 -eq 1)
+{
+    Import-Module -Name "..\scripts\WriteSavedKey.psm1" -Force
+    Write-Output "### Unit Test: Try to Update a value in LookUpValues file in an existing file."
+
+    Save-LookUp "RunnerA" "Second-Base"
+}
+
+# Try to Add new value in LookUpValues file in an existing file.
+if (0 -eq 1)
+{
+    Import-Module -Name "..\scripts\WriteSavedKey.psm1" -Force
+    Write-Output "### Unit Test: Try to Update a value in LookUpValues file in an existing file."
+
+    Save-LookUp "RunnerB" "First-Base"
 }
