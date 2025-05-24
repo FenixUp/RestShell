@@ -110,6 +110,8 @@ function Get-LookUpValues {
 
         # Loop through each row in the CSV
         foreach ($row in $csvContent) {
+            $row.SavedValue = $row.SavedValue.Substring($row.TrimOffsetStart, $row.SavedValue.Length - $row.TrimOffsetEnd - $row.TrimOffsetStart)
+            Write-Output $row
             $lookUpValues[$row.LookUpName] = $row.SavedValue
         }
         

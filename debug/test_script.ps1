@@ -248,17 +248,9 @@ if (0 -eq 1)
     Write-Output "### Unit Test: Invoking Get-LookUps function, no file create:"
     Import-Module -Name "..\scripts\WriteSavedKey.psm1" -Force
 
-    $results = Get-LookUps
+    $results = Get-LookUpValues
     Write-Output "Look up dump? :"
     $results
-
-    # $results
-    # foreach ($property in $results) {
-        # Write-Output $property
-        # Write-Output $property.Name
-        # Write-Output $property.Value
-        # $results[$property.Name] = $property.Value
-    # }
 }
 
 #------------------------------------------------------------------------------
