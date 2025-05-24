@@ -1,91 +1,121 @@
-### Read in command line inputs: ##############################
-param(
-    [Parameter()]
-    [String]$SavedKeysFile = "SavedKeys.json"
-)
+$DefaultLookUpFilename = ".\\LookUpValues.csv"
+# $LookUpFilePath="$($local_folder)\$($LookUpFile)"
 
-# $OutputFile = ".\\outfile.txt"
-# $SavedKeysFile = ".\\SavedKeys.txt"
-
-function Read-Value {
+# This function creates a LookUpFile json file with a Note property explaining what the file is. 
+# $lookUpFilePath should be a Full Filepath + Filename + .json
+function New-LookUpFile {
     param (
-        [string]$Subject,
-        [string]$Name
+        [string]$lookUpFilePath
     )
+    if ($LookUpFilePath -eq "") {
+        $LookUpFilePath = $DefaultLookUpFilename
+    }
+    if (Test-Path -Path $LookUpFilePath) {
+        Write-Host "### LookUp File exists at: " $LookUpFilePath
+        return
+    }
+
+    $note="### Creating a new Saved Keys file. $lookUpFilePath"
+    echo $note
+
+    New-Item -Path $lookUpFilePath -ItemType File -Force
+    $data = @{
+        Note = "This a lookup table for Restshell. Restshell requests can lookup values to apply to a request and store lookup values from responses."
+    }
+
+    # Create an object with the data for the single row
+    $rowData = [PSCustomObject]@{
+        LookUpName = "Note"
+        SearchRegex = ""
+        TrimOffsetStart = 0
+        TrimOffsetEnd = 0
+        SavedValue = "Restshell requests can lookup values here to apply to a request and store lookup values from responses."
+        IsRequired = "Optional"
+    }
+
+    # Export the object to a CSV file with a semicolon delimiter
+    $rowData | Export-Csv -Path $DefaultLookUpFilename -Delimiter ';' -NoTypeInformation
+    Write-Host "### Data written to $DefaultLookUpFilename successfully."
 }
 
 
-function Save-KeyValue($TargetKey, $UpdateValue, $SavedKeysFilePath) {
-   Write-Output "# TargetKey: $TargetKey; UpdateValue: $UpdateValue;"
-   Write-Output "# SavedKeysFilePath: $SavedKeysFilePath"
-
-    if ($SavedKeysFilePath -eq "") {
-        $SavedKeysFilePath = ".\SavedKeys.json"
+# This function Saves a Key Value pair to the LookUp file. 
+# If the Key already existed in the file, it gets added. 
+# If not, the Key-Value gets overwritten.
+# If the Lookup File doesn't exist, it gets created.
+function Save-LookUpValue {
+    param(
+        [string]$TargetKey,
+        [string]$UpdateValue,
+        [string]$LookUpFilePath = $DefaultLookUpFilename
+    )
+    Write-Output "# TargetKey: $TargetKey; UpdateValue: $UpdateValue;"
+    Write-Output "# LookUpFilePath: $LookUpFilePath"
+    
+    if ($LookUpFilePath -eq "") {
+        $LookUpFilePath = $DefaultLookUpFilename
     }
-
-    # $SavedKeysFilePath="$($local_folder)\$($SavedKeysFile)"
-    # $SavedKeysFilePath
 
     # Check if the file exists
-    if (Test-Path -Path $SavedKeysFilePath) {
-        # File exists, proceed to read it
-        # $SavedKeys = Get-ChildItem -Path $SavedKeysFilePath
-        $content = Get-Content $SavedKeysFilePath
-        Write-Output "# File content:"
-        Write-Output $content
-        # From ChatGPT
-        # Define the path to the JSON file
-        # $jsonFilePath = "..\UnitTest1.json"
-
-        # Read the existing JSON content from the file
-        $jsonContent = Get-Content -Path $SavedKeysFilePath -Raw | ConvertFrom-Json
-
-        # Define the new field and value to add
-        # $newField = "URL"
-        # $newValue = "www.outlook.com"
-
-        if ($jsonContent.PSObject.Properties[$TargetKey]) {
-            # Property exists, update its value
-            $jsonContent.$TargetKey = $UpdateValue
-            Write-Output "# Updated Property '$TargetKey' updated."
-            # exit(0)
-        }
-        else {
-            # Property does not exist, add the property and value
-            # $jsonObject | Add-Member -MemberType NoteProperty -Name $newField -Value $newValue
-
-            # Add the new field to the JSON object
-            $jsonContent | Add-Member -MemberType NoteProperty -Name $TargetKey -Value $UpdateValue
-            Write-Output "# Added Property '$newField' added."
+    if (Test-Path -Path $LookUpFilePath) {
+        # File exists, read the CSV content
+        $csvContent = Import-Csv -Path $LookUpFilePath -Delimiter ';'
+        
+        # Check if the key already exists
+        $existingRow = $csvContent | Where-Object { $_.LookUpName -eq $TargetKey }
+        
+        if ($existingRow) {
+            # Update existing row
+            $existingRow.SavedValue = $UpdateValue
+            Write-Output "# Updated existing key '$TargetKey'"
+        } else {
+            # Add new row
+            $newRow = [PSCustomObject]@{
+                LookUpName = $TargetKey
+                SearchRegex = ""
+                TrimOffsetStart = 0
+                TrimOffsetEnd = 0
+                SavedValue = $UpdateValue
+                IsRequired = "Optional"
+            }
+            $csvContent = @($csvContent) + $newRow
+            Write-Output "# Added new key '$TargetKey'"
         }
 
-
-
-        # Convert the updated object back to JSON format
-        $updatedJson = $jsonContent | ConvertTo-Json -Depth 3
-
-        # Write the updated JSON back to the same file
-        $updatedJson | Set-Content -Path $SavedKeysFilePath
-
-        Write-Host "New field added and JSON updated successfully."
+        # Export the updated content back to CSV
+        $csvContent | Export-Csv -Path $LookUpFilePath -Delimiter ';' -NoTypeInformation
+        Write-Host "Data updated in $LookUpFilePath successfully."
     } else {
-        $note="# Creating a new Saved Keys file. $SavedKeysFilePath"
-        echo $note
-
-        New-Item -Path $SavedKeysFilePath -ItemType File -Force
-        $data = @{
-            Note = "These are where found/saved values can be stored for multiple requests to re-access."
-            $TargetKey = $UpdateValue
-        }
-
-        # echo "# Write the updated JSON back to the same file"
-
-        # Write the JSON string to the file
-        $json = $data | ConvertTo-Json -Depth 2
-        $json | Out-File -FilePath $SavedKeysFilePath -Encoding UTF8
-        # $updatedJson | Set-Content -Path $SavedKeysFilePath
-        # echo "Create a file logic is done."
+        # Since it doesn't exist, Create the file and then re-call this function
+        CreateLookUpFile($LookUpFilePath)
+        Save-LookUp-CSV($TargetKey, $UpdateValue, $LookUpFilePath)
     }
+}
 
 
+# This function gets the LookUp value from a CSV file.
+# Returns a hashtable of LookUpName and SavedValue pairs.
+function Get-LookUpValues {
+    param(
+        [string]$LookUpFilePath = $DefaultLookUpFilename
+    )
+
+    # Check if the file exists
+    if (Test-Path -Path $LookUpFilePath) {
+        Write-Output "Found LookUp file: " $LookUpFilePath
+        $csvContent = Import-Csv -Path $LookUpFilePath -Delimiter ';'
+        
+        # Create a hashtable to store the lookup values
+        $lookUpValues = @{}
+
+        # Loop through each row in the CSV
+        foreach ($row in $csvContent) {
+            $lookUpValues[$row.LookUpName] = $row.SavedValue
+        }
+        
+        return $lookUpValues
+    } else {
+        New-LookUpFile($LookUpFilePath)
+        return Get-LookUpValues($LookUpFilePath)
+    }
 }
