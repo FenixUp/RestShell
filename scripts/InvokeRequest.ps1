@@ -155,10 +155,11 @@ for (($i = 0); $i -lt $InputJSON.Requests.Count; $i++)
         $response_payload = $response.RawContent.ToString()
     }
 
-    $echo = $response_payload.Substring(0,[math]::min(100, $response_payload.Length))
+    $peek_limit = 200
+    $echo = $response_payload.Substring(0,[math]::min($peek_limit, $response_payload.Length))
     echo $echo
 
-    if ($response_payload.Length -gt 100)
+    if ($response_payload.Length -gt $peek_limit)
     {
         echo '---'
         echo '### Response message truncated here, please check the Output File for the full message.'
