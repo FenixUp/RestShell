@@ -84,7 +84,7 @@ function Save-LookUpValue {
         }
 
         # Export the updated content back to CSV
-        $csvContent | Export-Csv -Path $LookUpFilePath
+        $csvContent | Export-Csv -Path $LookUpFilePath -NoTypeInformation
         Write-Host "Data updated in $LookUpFilePath successfully."
     } else {
         # Since it doesn't exist, Create the file and then re-call this function
