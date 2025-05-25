@@ -155,6 +155,14 @@ for (($i = 0); $i -lt $InputJSON.Requests.Count; $i++)
     else
     {
         $response_payload = $response.RawContent.ToString()
+        $LookUpValues = Get-LookUpValues
+        foreach($LookUp in $LookUpValues) {
+            if ($LookUp.SearchRegex.Length -gt 0){
+                $regexPattern = $LookUp.SearchRegex
+                $regex_match = [regex]::Match($response_payload, $regexPattern).Value
+                Save-LookUpValue $LookUp.LookUpName $regex_match
+            }
+        }
     }
 
     $peek_limit = 200
