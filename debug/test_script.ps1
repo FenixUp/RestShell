@@ -210,7 +210,7 @@ if (0 -eq 1)
 
 #------------------------------------------------------------------------------
 ### Testing out the CreateLookUpFile function.
-if (0 -eq 1)
+if (1 -eq 1)
 {
     echo ""
     Write-Output "### Unit Test: Invoking New-LookUpFile function."
@@ -279,7 +279,7 @@ if (0 -eq 1)
 }
 
 # Try to Add new value in LookUpValues file in an existing file.
-if (1 -eq 1)
+if (0 -eq 1)
 {
     Import-Module -Name "..\scripts\WriteSavedKey.psm1" -Force
     Write-Output "### Unit Test: Try to Update a value in LookUpValues file in an existing file."

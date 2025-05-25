@@ -19,9 +19,6 @@ function New-LookUpFile {
     echo $note
 
     New-Item -Path $lookUpFilePath -ItemType File -Force
-    $data = @{
-        Note = "This a lookup table for Restshell. Restshell requests can lookup values to apply to a request and store lookup values from responses."
-    }
 
     # Create an object with the data for the single row
     $rowData = [PSCustomObject]@{
@@ -34,7 +31,8 @@ function New-LookUpFile {
     }
 
     # Export the object to a CSV file with a semicolon delimiter
-    $rowData | Export-Csv -Path $DefaultLookUpFilename -Delimiter ';' -NoTypeInformation
+    $rowData | Export-Csv -Path $DefaultLookUpFilename -NoTypeInformation
+    
     Write-Host "### Data written to $DefaultLookUpFilename successfully."
 }
 
@@ -47,6 +45,9 @@ function Save-LookUpValue {
     param(
         [string]$TargetKey,
         [string]$UpdateValue,
+        [string]$SearchRegex = "",
+        [string]$TrimOffsetStart = 0,
+        [string]$TrimOffsetEnd = 0,
         [string]$LookUpFilePath = $DefaultLookUpFilename
     )
     Write-Output "# TargetKey: $TargetKey; UpdateValue: $UpdateValue;"
@@ -59,7 +60,7 @@ function Save-LookUpValue {
     # Check if the file exists
     if (Test-Path -Path $LookUpFilePath) {
         # File exists, read the CSV content
-        $csvContent = Import-Csv -Path $LookUpFilePath -Delimiter ';'
+        $csvContent = Import-Csv -Path $LookUpFilePath
         
         # Check if the key already exists
         $existingRow = $csvContent | Where-Object { $_.LookUpName -eq $TargetKey }
@@ -72,9 +73,9 @@ function Save-LookUpValue {
             # Add new row
             $newRow = [PSCustomObject]@{
                 LookUpName = $TargetKey
-                SearchRegex = ""
-                TrimOffsetStart = 0
-                TrimOffsetEnd = 0
+                SearchRegex = $SearchRegex
+                TrimOffsetStart = $TrimOffsetStart
+                TrimOffsetEnd = $TrimOffsetEnd
                 SavedValue = $UpdateValue
                 IsRequired = "Optional"
             }
@@ -83,7 +84,7 @@ function Save-LookUpValue {
         }
 
         # Export the updated content back to CSV
-        $csvContent | Export-Csv -Path $LookUpFilePath -Delimiter ';' -NoTypeInformation
+        $csvContent | Export-Csv -Path $LookUpFilePath
         Write-Host "Data updated in $LookUpFilePath successfully."
     } else {
         # Since it doesn't exist, Create the file and then re-call this function
@@ -103,7 +104,7 @@ function Get-LookUpValues {
     # Check if the file exists
     if (Test-Path -Path $LookUpFilePath) {
         Write-Output "Found LookUp file: " $LookUpFilePath
-        $csvContent = Import-Csv -Path $LookUpFilePath -Delimiter ';'
+        $csvContent = Import-Csv -Path $LookUpFilePath
         
         # Create a hashtable to store the lookup values
         $lookUpValues = @{}
