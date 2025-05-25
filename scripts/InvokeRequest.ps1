@@ -4,7 +4,7 @@ param(
     [String]$TargetRequestFile = "001_Simple_example.json"
 )
 
-Import-Module -Name ".\WriteSavedKey.psm1" -Force
+Import-Module -Name ".\scripts\WriteSavedKey.psm1" -Force
 
 $OutputFile = ".\\outfile.txt"
 $SavedKeysFile = ".\\SavedKeys.json"
@@ -39,10 +39,14 @@ for (($i = 0); $i -lt $InputJSON.Requests.Count; $i++)
 
     $current = $InputJSON.Requests[$i]
 
-    $echo = '### URL: ' + $current.TargetURL
-    echo $echo
     $TargetURL = $current.TargetURL
-
+    $LookUpValues = Get-LookUpValues
+    foreach($LookUp in $LookUpValues) {
+        $LookUpName = "{" + $LookUp.LookUpName + "}"
+        $TargetURL = $TargetURL -creplace $LookUpName,$LookUp.SavedValue
+    }
+    $echo = '### URL: ' + $TargetURL
+    echo $echo
 
     $echo = '### Method: ' + $current.HTTP_Method
     echo $echo
@@ -59,14 +63,12 @@ for (($i = 0); $i -lt $InputJSON.Requests.Count; $i++)
     echo $echo
     for ($j = 0; $j -lt $Headers_count + 0; $j++) 
     {
-    <#
-        $echo = '### j:' + $j
-        echo $echo
-
-        $echo = $current.Headers[$j]
-        echo $echo
-    #>
-        $echo = $current.Headers[$j].Name + ': ' + $current.Headers[$j].Value
+        $header_value = $current.Headers[$j].Value
+        foreach($LookUp in $LookUpValues) {
+            $LookUpName = "{" + $LookUp.LookUpName + "}"
+            $header_value = $header_value -creplace $LookUpName,$LookUp.SavedValue
+        }
+        $echo = $current.Headers[$j].Name + ': ' + $header_value
         echo $echo
 
         $req_headers.Add($current.Headers[$j].Name, $current.Headers[$j].Value)
@@ -112,13 +114,13 @@ for (($i = 0); $i -lt $InputJSON.Requests.Count; $i++)
     {
         if ($current.HTTP_Method -eq "GET" -or $current.HTTP_Method -eq "DELETE") 
         {
-            $response = Invoke-WebRequest $current.TargetURL -Method $current.HTTP_Method -Headers $req_headers
+            $response = Invoke-WebRequest $TargetURL -Method $current.HTTP_Method -Headers $req_headers
             $StatusCode = $Response.StatusCode
             $StatusDescription = $Response.StatusDescription
         }
         elseif ($current.HTTP_Method -eq "POST" -or $current.HTTP_Method -eq "PUT")
         {
-            $response = Invoke-WebRequest $current.TargetURL -Method $current.HTTP_Method -Headers $req_headers -Body $Request_Body
+            $response = Invoke-WebRequest $TargetURL -Method $current.HTTP_Method -Headers $req_headers -Body $Request_Body
             $StatusCode = $Response.StatusCode
             $StatusDescription = $Response.StatusDescription
         }

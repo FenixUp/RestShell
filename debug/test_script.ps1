@@ -270,7 +270,7 @@ if (0 -eq 1)
 }
 
 # Try to Update a value in LookUpValues file in an existing file.
-if (0 -eq 1)
+if (1 -eq 1)
 {
     Import-Module -Name "..\scripts\WriteSavedKey.psm1" -Force
     Write-Output "### Unit Test: Try to Update a value in LookUpValues file in an existing file."
@@ -279,7 +279,7 @@ if (0 -eq 1)
 }
 
 # Try to Add new value in LookUpValues file in an existing file.
-if (0 -eq 1)
+if (1 -eq 1)
 {
     Import-Module -Name "..\scripts\WriteSavedKey.psm1" -Force
     Write-Output "### Unit Test: Try to Update a value in LookUpValues file in an existing file."
