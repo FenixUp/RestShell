@@ -184,7 +184,10 @@ for (($i = 0); $i -lt $InputJSON.Requests.Count; $i++)
 
 
     if ($current.ReturnType -eq "JSON") {
-        $response_json = $response | ConvertTo-Json -depth 5 | Out-File -FilePath $OutputFile
+        $response_payload -replace "`r`n", "`n" | Out-File -FilePath $OutputFile
+    }
+    else {
+        $response | Out-File -FilePath $OutputFile
     }
 
     # Request Post-Processing
