@@ -86,7 +86,7 @@ while(($finished_selection -ne 1) -and ($failure_count -lt 4))
         $menu_item = Read-Host '> (Press Enter)'
     }
     # Did i get a number in range? 
-    elseif (($menu_item -le 0) -or ($menu_item -gt $local_files.Count + 2))
+    elseif (([int]$menu_item -le 0) -or ([int]$menu_item -gt $local_files.Count + 2))
     {
         $echo = '' + $menu_item + ' is out of range. Please select from the menu.'
         echo $echo
@@ -94,7 +94,7 @@ while(($finished_selection -ne 1) -and ($failure_count -lt 4))
         $menu_item = Read-Host '> (Press Enter)'
     }
     # Did the user select Import from Postman?
-    elseif (($menu_item -eq $local_files.Count + 1) -and ($PostmanImport -eq 0))
+    elseif (([int]$menu_item -eq $local_files.Count + 1) -and ($PostmanImport -eq 0))
     {
         echo ""
         echo "---"
@@ -104,7 +104,7 @@ while(($finished_selection -ne 1) -and ($failure_count -lt 4))
         echo ""
     }
     # Did the user select CSV Import?
-    elseif (($menu_item -eq $local_files.Count + 2) -and ($CsvImport -eq 0))
+    elseif (([int]$menu_item -eq $local_files.Count + 2) -and ($CsvImport -eq 0))
     {
         echo ""
         echo "---"
@@ -115,7 +115,7 @@ while(($finished_selection -ne 1) -and ($failure_count -lt 4))
         echo ""
     }
     # Did the user select to return to Make Web Request?
-    elseif ( (($menu_item -eq $local_files.Count + 1) -and ($PostmanImport -eq 1)) -or (($menu_item -eq $local_files.Count + 2) -and ($CsvImport -eq 1)))
+    elseif ( (([int]$menu_item -eq $local_files.Count + 1) -and ($PostmanImport -eq 1)) -or (([int]$menu_item -eq $local_files.Count + 2) -and ($CsvImport -eq 1)))
     {
         echo ""
         echo "---"
