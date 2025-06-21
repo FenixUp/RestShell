@@ -71,7 +71,7 @@ for (($i = 0); $i -lt $InputJSON.Requests.Count; $i++)
         $echo = $current.Headers[$j].Name + ': ' + $header_value
         echo $echo
 
-        $req_headers.Add($current.Headers[$j].Name, $current.Headers[$j].Value)
+        $req_headers.Add($current.Headers[$j].Name, $header_value)
     }
 
 
@@ -143,7 +143,9 @@ for (($i = 0); $i -lt $InputJSON.Requests.Count; $i++)
     echo '###'
     $echo = '### HTTP Status Code: ' + $StatusCode + ' - ' + $StatusDescription + ' - ' + (Get-Date).ToString()
     echo $echo
-    echo '### Peek Response:'
+    $peek_limit = 200
+    $echo = '### Peek Response: (top ' + $peek_limit + ' characters)' 
+    echo $echo
     echo '---'
 
     $response_payload = ""
@@ -165,7 +167,6 @@ for (($i = 0); $i -lt $InputJSON.Requests.Count; $i++)
         }
     }
 
-    $peek_limit = 200
     $echo = $response_payload.Substring(0,[math]::min($peek_limit, $response_payload.Length))
     echo $echo
 
