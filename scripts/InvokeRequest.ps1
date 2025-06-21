@@ -81,21 +81,26 @@ for (($i = 0); $i -lt $InputJSON.Requests.Count; $i++)
     $Request_Body = $current.Request_Body
 
 
-    $echo = '### Request_Body_FileName: ' + $current.Request_Body_FileName
-    echo $echo
     $Request_Body_FileName = $current.Request_Body_FileName
     if ($Request_Body_FileName.Length -gt 0)
     {
+        $echo = '### Request_Body_FileName: ' + $current.Request_Body_FileName
+        echo $echo
         $Request_Body = Get-Content $Request_Body_FileName -Raw
+        $Request_Body_FileName = $current.Request_Body_FileName
     }
 
 
-    $echo = '### OutputFile: ' + $current.OutputFile
-    echo $echo
     $OutputFile = $current.Output_Filename
+    $echo = '### OutputFile: ' + $OutputFile
 
-    $echo = '### ReturnType: ' + $current.ReturnType
-    echo $echo
+    if ($current.ReturnType.Length -eq 0){
+        echo '### ReturnType: None'
+    }
+    else {
+        $echo = '### ReturnType: ' + $current.ReturnType
+        echo $echo
+    }
     $ReturnType = $current.ReturnType
 
 
