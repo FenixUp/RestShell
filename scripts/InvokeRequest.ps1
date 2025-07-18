@@ -34,7 +34,7 @@ $InputJSON = Get-Content $TargetRequestFile -Raw | ConvertFrom-Json
 for (($i = 0); $i -lt $InputJSON.Requests.Count; $i++)
 {
     echo ''
-    $echo = "### Request Number: " + ($i + 1)
+    $echo = "##### Request Number: " + ($i + 1) + "#####"
     $echo
 
     $current = $InputJSON.Requests[$i]
@@ -93,6 +93,7 @@ for (($i = 0); $i -lt $InputJSON.Requests.Count; $i++)
 
     $OutputFile = $current.Output_Filename
     $echo = '### OutputFile: ' + $OutputFile
+    echo $echo
 
     if ($current.ReturnType.Length -eq 0){
         echo '### ReturnType: None'
@@ -107,7 +108,7 @@ for (($i = 0); $i -lt $InputJSON.Requests.Count; $i++)
     #### Rest Implementation: ###########################################################
     echo '###'
 
-    $StartTimeNote = "### Starting Request: " + (Get-Date).ToString()
+    $StartTimeNote = ">>> Starting Request: " + (Get-Date).ToString()
     $StartTimeNote
 
     ## Beginning Pre-Processing.
@@ -146,7 +147,7 @@ for (($i = 0); $i -lt $InputJSON.Requests.Count; $i++)
 
 
     echo '###'
-    $echo = '### HTTP Status Code: ' + $StatusCode + ' - ' + $StatusDescription + ' - ' + (Get-Date).ToString()
+    $echo = '>>> HTTP Status Code: ' + $StatusCode + ' - ' + $StatusDescription + ' - ' + (Get-Date).ToString()
     echo $echo
     $peek_limit = 200
     $echo = '### Peek Response: (top ' + $peek_limit + ' characters)' 
@@ -157,7 +158,7 @@ for (($i = 0); $i -lt $InputJSON.Requests.Count; $i++)
 
     if ($ReturnType -eq "JSON")
     {
-        $response_payload = $response | Convert-To -depth 5 | Out-String
+        $response_payload = $response.Content | ConvertFrom-Json | ConvertTo-Json -depth 5 | Out-String
     }
     else
     {
