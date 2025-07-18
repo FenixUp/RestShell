@@ -34,7 +34,7 @@ $InputJSON = Get-Content $TargetRequestFile -Raw | ConvertFrom-Json
 for (($i = 0); $i -lt $InputJSON.Requests.Count; $i++)
 {
     echo ''
-    $echo = "##### Request Number: " + ($i + 1) + "#####"
+    $echo = "===== Request Number: " + ($i + 1) + " ====="
     $echo
 
     $current = $InputJSON.Requests[$i]
