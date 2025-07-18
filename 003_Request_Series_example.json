@@ -31,7 +31,7 @@
             "Request_Body": "",
             "Request_Body_FileName": "",
 
-            "ReturnType": "JSON",
+            "ReturnType": "None",
             "ReturnType_options": "JSON,ToFile,None",
 
 
@@ -70,7 +70,7 @@
             "Request_Body": "",
             "Request_Body_FileName": "",
 
-            "ReturnType": "JSON",
+            "ReturnType": "None",
             "ReturnType_options": "JSON,ToFile,None",
 
 
