@@ -68,8 +68,16 @@ for (($i = 0); $i -lt $InputJSON.Requests.Count; $i++)
             $LookUpName = "{" + $LookUp.LookUpName + "}"
             $header_value = $header_value -creplace $LookUpName,$LookUp.SavedValue
         }
-        $echo = $current.Headers[$j].Name + ': ' + $header_value
-        echo $echo
+        if ($current.Headers[$j].Name -ne "Authorization")
+        {
+            $echo = $current.Headers[$j].Name + ': ' + $header_value
+            echo $echo
+        }
+        else 
+        {
+            $echo = $current.Headers[$j].Name + ': (omitted)'
+            echo $echo
+        }
 
         $req_headers.Add($current.Headers[$j].Name, $header_value)
     }
